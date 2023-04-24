@@ -9,20 +9,20 @@ public class Employee {
 
     }
 
-    public Employee(int id, String firstName, String lastName, int age, String gender, int ciytId) {
+    public Employee(int id, String firstName, String lastName, int age, String gender, City city) {
         this.id=id;
         this.firstName=firstName;
         this.lastName=lastName;
         this.age=age;
         this.gender=gender;
-        this.ciytId=ciytId;
+        this.city=city;
     }
-    public Employee(String firstName, String lastName, int age, String gender, int ciytId) {
+    public Employee(String firstName, String lastName, int age, String gender, City city) {
         this.firstName=firstName;
         this.lastName=lastName;
         this.age=age;
         this.gender=gender;
-        this.ciytId=ciytId;
+        this.city=city;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +35,10 @@ public class Employee {
     private String gender;
     @Column(name = "age", nullable = false)
     private int age;
-    @Column(name="city_id", nullable = false)
-    private int ciytId;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
     /////////////////////// getters ///////////////////
 
@@ -60,9 +62,10 @@ public class Employee {
         return age;
     }
 
-    public int getCiytId() {
-        return ciytId;
+    public City getCity() {
+        return city;
     }
+
     ////////////////////////////// setters //////////////////
 
     public void setId(int id) {
@@ -85,13 +88,14 @@ public class Employee {
         this.age = age;
     }
 
-    public void setCiytId(int ciytId) {
-        this.ciytId = ciytId;
+    public void setCity(City city) {
+        this.city = city;
     }
+
     //////////////////////////////////////
 
     @Override
     public String toString() {
-        return "id("+id+") "+firstName+" "+lastName+" ["+age+"]"+"{"+gender+"}"+" city_id="+ciytId;
+        return "ID("+id+") "+firstName+" "+lastName+" ["+age+"]"+"{"+gender+"}"+"  City = "+city.getCityName();
     }
 }
